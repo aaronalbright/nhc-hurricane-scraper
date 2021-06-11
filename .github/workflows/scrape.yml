@@ -1,0 +1,21 @@
+name: Scrape Latest data
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Scrape latest data
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Build
+        run: npm install
+      - name: Scrape
+        run: npm start
+      

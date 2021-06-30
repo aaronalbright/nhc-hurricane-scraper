@@ -4,7 +4,7 @@
   "description": "Hurricane scraper via GitHub Actions",
   "main": "index.js",
   "scripts": {
-    "test": "rm -rf data && node ./index.mjs",
+    "test": "node -r dotenv/config ./index.mjs",
     "start": "node ./index.mjs",
     "build": "node ./create-image.js"
   },
@@ -15,5 +15,8 @@
     "fs-extra": "^10.0.0",
     "ibis-gis": "^1.0.11",
     "puppeteer": "^10.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

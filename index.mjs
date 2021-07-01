@@ -21,7 +21,7 @@ const pathToData = (shape, stormName, advNum) =>
   );
 
 async function init() {
-  const ibis = new Ibis({basin: 'ep'});
+  const ibis = new Ibis();
 
   for (const shape of shapes) {
     const data = await ibis.getAll[shape]();
@@ -46,10 +46,10 @@ async function init() {
           await fs.outputJSON(filePath, json, { spaces: 0 });
           // creates forecast_lastest in addition to advisory file
           if (shape == 'forecast') await fs.outputJSON(pathToData(shape, stormname), json, { spaces: 0 });
-          // await notifySlack(shape, d)
+          await notifySlack(shape, d)
         } else if (currentFile[0].pubDate !== date) {
           await fs.outputJSON(filePath, json, { spaces: 0 });
-          // await notifySlack(shape, d)
+          await notifySlack(shape, d)
         } else {
           console.log(`File "${shape}" for ${stormname.toUpperCase()} already exists and has no new data`);
           return;
@@ -76,3 +76,46 @@ async function init() {
 }
 
 init().catch(console.error);
+
+async function notifySlack(shape, data) {
+  await axios.post(
+    process.env.SLACK_HOOK,
+    {
+      text: 'New data found',
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text:
+              ':cyclone: New advisory found. Writing current data to file...'
+          }
+        },
+        {
+          type: 'divider'
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `*Type:* ${shape}`
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `*Name:* ${data.name}`
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `*Date:* ${data.date}`
+          }
+        }
+      ]
+    }
+  );
+}

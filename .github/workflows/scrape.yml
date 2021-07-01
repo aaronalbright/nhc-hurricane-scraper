@@ -31,7 +31,7 @@ jobs:
       - name: Scrape latest data
         run: npm start
         env:
-          SCLACK_HOOK: ${{ secrets.SCLACK_HOOK }}
+          SLACK_HOOK: ${{ secrets.SLACK_HOOK }}
       - name: Commit and push changes
         run: |-
           git config user.name "Scraper"

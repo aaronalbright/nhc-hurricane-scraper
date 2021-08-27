@@ -31,8 +31,8 @@ const fs = require('fs-extra');
 
     const {name, adv} = await page.$eval('.hurricane__map', e => ({name: e.dataset.name, adv: e.dataset.advnum}))
 
-    const imagePath = path.join(__dirname, 'images', `${name}-${adv}.png`);
-    const latestPath = path.join(__dirname, 'images', `${name}_latest.png`);
+    const imagePath = path.join(__dirname, 'docs', `${name}-${adv}.png`);
+    const latestPath = path.join(__dirname, 'docs', `${name}_latest.png`);
 
     const exists = await fs.pathExists(imagePath);
 

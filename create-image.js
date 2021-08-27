@@ -19,7 +19,7 @@ const fs = require('fs-extra');
       deviceScaleFactor: 1.5,
     });
 
-    await page.goto('https://www.sunherald.com/news/weather/hurricane/article253790783.html', { waitUntil: 'networkidle0' });
+    await page.goto('https://www.sunherald.com/news/weather/hurricane/article253790783.html?v=2', { waitUntil: 'networkidle0' });
 
     // Hides button before taking screenshot
     await page.evaluate(() => {

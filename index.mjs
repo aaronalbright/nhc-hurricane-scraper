@@ -46,10 +46,10 @@ async function init() {
           await fs.outputJSON(filePath, json, { spaces: 0 });
           // creates forecast_lastest in addition to advisory file
           if (shape == 'forecast' || shape == 'windField') await fs.outputJSON(pathToData(shape, stormname), json, { spaces: 0 });
-          // await notifySlack(shape, d)
+          await notifySlack(shape, d)
         } else if (currentFile[0].pubDate !== date) {
           await fs.outputJSON(filePath, json, { spaces: 0 });
-          // await notifySlack(shape, d)
+          await notifySlack(shape, d)
         } else {
           console.log(`File "${shape}" for ${stormname.toUpperCase()} already exists and has no new data`);
           return;

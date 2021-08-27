@@ -1,14 +1,14 @@
-name: Scrape Latest data
+name: Scrape forecast image
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '3,16,34,52 * * * *'
+    - cron: '6,21,42,55 * * * *'
 
 
 jobs:
-  scheduled:
-    name: Fetch NHC
+  scrape:
+    name: Scrape image
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
@@ -28,8 +28,8 @@ jobs:
             ${{ runner.OS }}-
       - name: Install packages
         run: npm ci
-      - name: Scrape latest data
-        run: npm start
+      - name: Scrape latest image
+        run: npm run build
         env:
           SLACK_HOOK: ${{ secrets.SLACK_HOOK }}
       - name: Commit and push changes
@@ -38,5 +38,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A
           timestamp=$(date -u)
-          git commit -m "Latest data: ${timestamp}" || exit 0
+          git commit -m "Latest image: ${timestamp}" || exit 0
           git push

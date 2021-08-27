@@ -15,11 +15,18 @@ const fs = require('fs-extra');
 
     await page.setViewport({
       width: 800,
-      height: 450,
+      height: 800,
       deviceScaleFactor: 1.5,
     });
 
-    await page.goto('http://localhost:3000/', { waitUntil: 'networkidle0' });
+    await page.goto('https://www.sunherald.com/news/weather/hurricane/article253790783.html', { waitUntil: 'networkidle0' });
+
+    // Hides button before taking screenshot
+    await page.evaluate(() => {
+      let btn = document.querySelector('.hurricane__map > button')
+      btn.style.display = 'none'; 
+    })
+
     const map = await page.$('.hurricane__map');
 
     const {name, adv} = await page.$eval('.hurricane__map', e => ({name: e.dataset.name, adv: e.dataset.advnum}))

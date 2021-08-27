@@ -45,7 +45,7 @@ async function init() {
         if (!exists) {
           await fs.outputJSON(filePath, json, { spaces: 0 });
           // creates forecast_lastest in addition to advisory file
-          if (shape == 'forecast') await fs.outputJSON(pathToData(shape, stormname), json, { spaces: 0 });
+          if (shape == 'forecast' || shape == 'windField') await fs.outputJSON(pathToData(shape, stormname), json, { spaces: 0 });
           // await notifySlack(shape, d)
         } else if (currentFile[0].pubDate !== date) {
           await fs.outputJSON(filePath, json, { spaces: 0 });

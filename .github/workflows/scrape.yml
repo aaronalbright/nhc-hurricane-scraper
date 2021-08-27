@@ -9,6 +9,7 @@ on:
 
 jobs:
   scheduled:
+    name: 'Fetch NHC'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo

@@ -2,8 +2,8 @@ name: Scrape Latest data
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '3,16,34,52 * * * *'
+  # schedule:
+    # - cron: '3,16,34,52 * * * *'
 
 
 jobs:

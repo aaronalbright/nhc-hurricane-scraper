@@ -2,14 +2,15 @@ name: Scrape forecast image
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '6,21,42,55 * * * *'
+  # schedule:
+    # - cron: '6,21,42,55 * * * *'
 
 
 jobs:
   scrape:
     name: Scrape image
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
